@@ -165,9 +165,6 @@ if __name__ == '__main__':
 # kubectl patch configmap/aws-auth -n kube-system --patch "$(cat ./aws-auth-patch.yml)"
 # kubectl apply -f ./aws-auth-patch.yml
 # cat ./aws-auth-patch.yml
-# kubectl patch configmap/aws-auth -n kube-system --patch "$(cat ./aws-auth-patch.yml)"
-# kubectl patch configmap/aws-auth -n kube-system --patch "$(type ./aws-auth-patch.yml)"
-# kubectl patch configmap/aws-auth -n kube-system --patch "$(cat ./aws-auth-patch.yml)"
 # aws configure list
 # kubectl config get-clusters
 # kubectl get nodes
@@ -191,7 +188,7 @@ if __name__ == '__main__':
 # In Git Bash!:
 # kubectl patch configmap/aws-auth -n kube-system --patch "$(cat ./aws-auth-patch.yml)"
 # Token for CodePipeline:
-# 9da404239dd499bbca7bce36b9122c9e3764083e
+# 60ad85df090c2a4080ea1c6fd67dcb051ae6613a
 # aws ssm put-parameter --name JWT_SECRET --value "myjwtsecret" --type SecureString
 # aws ssm get-parameter --name "JWT_SECRET"  --with-decryption
 # aws ssm delete-parameter --name JWT_SECRET
@@ -204,3 +201,11 @@ if __name__ == '__main__':
 # kubectl config current-context
 # aws configure
 # aws configure list
+# aws codepipeline get-pipeline --name simple-jwt-api-stack-test-CodePipelineGitHub-DPZLJFMWF28V >pipeline.json
+# Remove metadata from pipeline.json!
+# aws codepipeline update-pipeline --cli-input-json file://pipeline.json
+# a0180e3d33d09472688e06256ea33cda-656519196.us-west-2.elb.amazonaws.com
+# export URL="a0180e3d33d09472688e06256ea33cda-656519196.us-west-2.elb.amazonaws.com"
+# export TOKEN=`curl -d '{"email":"test@test.com","password":"test"}' -H "Content-Type: application/json" -X POST $URL/auth  | jq -r '.token'`
+# curl --request GET $URL:80/contents -H "Authorization: Bearer ${TOKEN}" | jq
+# 
