@@ -11,8 +11,8 @@ import jwt
 from flask import Flask, jsonify, request, abort
 
 
-JWT_SECRET = os.environ.get('JWT_SECRET', 'abc123abc1234')
-LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
+JWT_SECRET = os.environ.get('JWT_SECRET', 'myjwtsecret')
+LOG_LEVEL = os.environ.get('LOG_LEVEL', 'DEBUG')
 
 
 def _logger():
@@ -193,8 +193,14 @@ if __name__ == '__main__':
 # Token for CodePipeline:
 # 9da404239dd499bbca7bce36b9122c9e3764083e
 # aws ssm put-parameter --name JWT_SECRET --value "myjwtsecret" --type SecureString
-# aws ssm get-parameter --name JWT_SECRET
+# aws ssm get-parameter --name "JWT_SECRET"  --with-decryption
 # aws ssm delete-parameter --name JWT_SECRET
 # git add .
 # git commit -m "initial commit"
-# git push heroku master
+# git push
+
+# aws ssm put-parameter --name JWT_SECRET --value "cambridge2012" --type SecureString --overwrite
+# kubectl config view
+# kubectl config current-context
+# aws configure
+# aws configure list
